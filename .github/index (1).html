@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kaniX_mSnR | Trading Journal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="app.navigate('home')">
+                <span class="logo-bracket">[</span>
+                <span class="logo-text">kaniX_mSnR</span>
+                <span class="logo-bracket">]</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="nav-link active" data-page="home" onclick="app.navigate('home')">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="journal" onclick="app.navigate('journal')">Journal</a></li>
+                <li><a href="#" class="nav-link" data-page="analytics" onclick="app.navigate('analytics')">Analytics</a></li>
+                <li><a href="#" class="nav-link" data-page="about" onclick="app.navigate('about')">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#" class="mobile-link" data-page="home" onclick="app.navigate('home')">Home</a>
+        <a href="#" class="mobile-link" data-page="journal" onclick="app.navigate('journal')">Journal</a>
+        <a href="#" class="mobile-link" data-page="analytics" onclick="app.navigate('analytics')">Analytics</a>
+        <a href="#" class="mobile-link" data-page="about" onclick="app.navigate('about')">About</a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section class="page-section active" id="home">
+            <div class="hero">
+                <div class="hero-bg">
+                    <div class="gradient-orb orb-1"></div>
+                    <div class="gradient-orb orb-2"></div>
+                    <div class="gradient-orb orb-3"></div>
+                </div>
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="logo-bracket">[</span>
+                        <span class="gradient-text">kaniX_mSnR</span>
+                        <span class="logo-bracket">]</span>
+                    </h1>
+                    <p class="hero-tagline">Track. Learn. Grow.</p>
+                    <p class="hero-desc">
+                        Your personal trading journal for disciplined growth. 
+                        Record every trade, analyze your performance, and become a better trader.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="app.navigate('journal')">
+                            <span>Start Journaling</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                        <button class="btn btn-outline" onclick="app.navigate('analytics')">
+                            <span>View Analytics</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-card glass">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="heroTotalTrades">0</span>
+                            <span class="stat-label">Total Trades</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                                <polyline points="17 6 23 6 23 12"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="heroWinRate">0%</span>
+                            <span class="stat-label">Win Rate</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="heroPnl">$0</span>
+                            <span class="stat-label">Total P&L</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journal Section -->
+        <section class="page-section" id="journal">
+            <div class="section-header">
+                <h2 class="section-title">Trading Journal</h2>
+                <p class="section-subtitle">Record and review every trade</p>
+            </div>
+
+            <!-- Trade Form -->
+            <div class="form-card glass">
+                <h3 class="form-title">Add New Trade</h3>
+                <form id="tradeForm" class="trade-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tradeDate">Date</label>
+                            <input type="date" id="tradeDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tradeAsset">Asset</label>
+                            <input type="text" id="tradeAsset" placeholder="e.g., BTC, ETH, EUR/USD" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tradeType">Type</label>
+                            <select id="tradeType" required>
+                                <option value="">Select Type</option>
+                                <option value="crypto">Crypto</option>
+                                <option value="forex">Forex</option>
+                                <option value="stocks">Stocks</option>
+                                <option value="commodities">Commodities</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tradeDirection">Direction</label>
+                            <select id="tradeDirection" required>
+                                <option value="">Select Direction</option>
+                                <option value="long">Long</option>
+                                <option value="short">Short</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="entryPrice">Entry Price</label>
+                            <input type="number" id="entryPrice" step="0.00000001" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exitPrice">Exit Price</label>
+                            <input type="number" id="exitPrice" step="0.00000001" placeholder="0.00" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="positionSize">Position Size</label>
+                            <input type="number" id="positionSize" step="0.01" placeholder="e.g., 1.5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="calculatedPnl">Calculated P&L</label>
+                            <input type="text" id="calculatedPnl" readonly placeholder="Auto-calculated" class="readonly-field">
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="tradeSetup">Setup</label>
+                        <input type="text" id="tradeSetup" list="setupOptions" placeholder="e.g., Elliott Wave Wave 3, Order Flow Imbalance...">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="tradeNotes">Notes</label>
+                        <textarea id="tradeNotes" rows="3" placeholder="What was your strategy? How did you feel? What did you learn?"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            <span>Add Trade</span>
+                        </button>
+                        <button type="reset" class="btn btn-ghost">Reset</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Trades List -->
+            <div class="trades-section">
+                <div class="trades-toolbar">
+                    <h3 class="trades-title">Trade History</h3>
+                    <div class="trades-filters">
+                        <div class="search-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input type="text" id="searchTrades" placeholder="Search by asset, notes...">
+                        </div>
+                        <select id="filterType" class="filter-select">
+                            <option value="">All Types</option>
+                            <option value="crypto">Crypto</option>
+                            <option value="forex">Forex</option>
+                            <option value="stocks">Stocks</option>
+                            <option value="commodities">Commodities</option>
+                        </select>
+                        <select id="filterSetup" class="filter-select">
+                            <option value="">All Setups</option>
+                        </select>
+                        <select id="filterResult" class="filter-select">
+                            <option value="">All Results</option>
+                            <option value="win">Win</option>
+                            <option value="loss">Loss</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="trades-table-container">
+                    <table class="trades-table" id="tradesTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Asset</th>
+                                <th>Type</th>
+                                <th>Direction</th>
+                                <th>Setup</th>
+                                <th>Entry</th>
+                                <th>Exit</th>
+                                <th>P&L</th>
+                                <th>Notes</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tradesTableBody">
+                            <!-- Trades rendered here -->
+                        </tbody>
+                    </table>
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        <h4>No trades yet</h4>
+                        <p>Start by adding your first trade above</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section class="page-section" id="analytics">
+            <div class="section-header">
+                <h2 class="section-title">Analytics Dashboard</h2>
+                <p class="section-subtitle">Performance insights at a glance</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-tile glass">
+                    <div class="stat-tile-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                    </div>
+                    <div class="stat-tile-info">
+                        <span class="stat-tile-value" id="totalTrades">0</span>
+                        <span class="stat-tile-label">Total Trades</span>
+                    </div>
+                </div>
+                <div class="stat-tile glass">
+                    <div class="stat-tile-icon win-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                            <polyline points="17 6 23 6 23 12"/>
+                        </svg>
+                    </div>
+                    <div class="stat-tile-info">
+                        <span class="stat-tile-value" id="totalWinRate">0%</span>
+                        <span class="stat-tile-label">Overall Win Rate</span>
+                    </div>
+                </div>
+                <div class="stat-tile glass">
+                    <div class="stat-tile-icon crypto-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </div>
+                    <div class="stat-tile-info">
+                        <span class="stat-tile-value" id="cryptoWinRate">0%</span>
+                        <span class="stat-tile-label">Crypto Win Rate</span>
+                    </div>
+                </div>
+                <div class="stat-tile glass">
+                    <div class="stat-tile-icon forex-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <div class="stat-tile-info">
+                        <span class="stat-tile-value" id="forexWinRate">0%</span>
+                        <span class="stat-tile-label">Forex Win Rate</span>
+                    </div>
+                </div>
+                <div class="stat-tile glass">
+                    <div class="stat-tile-icon pnl-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <div class="stat-tile-info">
+                        <span class="stat-tile-value" id="totalPnl">$0</span>
+                        <span class="stat-tile-label">Total P&L</span>
+                    </div>
+                </div>
+                <div class="stat-tile glass">
+                    <div class="stat-tile-icon avg-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 20V10M12 20V4M6 20v-6"/>
+                        </svg>
+                    </div>
+                    <div class="stat-tile-info">
+                        <span class="stat-tile-value" id="avgTrade">$0</span>
+                        <span class="stat-tile-label">Avg Per Trade</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card glass">
+                    <h4 class="chart-title">P&L Over Time</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="pnlChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card glass">
+                    <h4 class="chart-title">Win vs Loss</h4>
+                    <div class="chart-wrapper doughnut-wrapper">
+                        <canvas id="winLossChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card glass">
+                    <h4 class="chart-title">Performance by Asset Type</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="typeChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card glass">
+                    <h4 class="chart-title">Monthly Performance</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card glass">
+                    <h4 class="chart-title">Win Rate by Setup</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="setupChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card glass">
+                    <h4 class="chart-title">Setup Performance</h4>
+                    <div class="setup-table-wrapper">
+                        <table class="setup-table" id="setupTable">
+                            <thead>
+                                <tr>
+                                    <th>Setup</th>
+                                    <th>Trades</th>
+                                    <th>Wins</th>
+                                    <th>Losses</th>
+                                    <th>Win Rate</th>
+                                    <th>P&L</th>
+                                </tr>
+                            </thead>
+                            <tbody id="setupTableBody">
+                                <!-- Setup stats rendered here -->
+                            </tbody>
+                        </table>
+                        <div class="empty-state" id="setupEmptyState">
+                            <h4>No setup data yet</h4>
+                            <p>Add a "Setup" name to your trades to see win rates per setup</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="page-section" id="about">
+            <div class="section-header">
+                <h2 class="section-title">About</h2>
+                <p class="section-subtitle">The story behind kaniX_mSnR</p>
+            </div>
+            <div class="about-card glass">
+                <div class="about-content">
+                    <div class="about-brand">
+                        <span class="logo-bracket">[</span>
+                        <span class="about-logo-text">kaniX_mSnR</span>
+                        <span class="logo-bracket">]</span>
+                    </div>
+                    <p class="about-text">
+                        <strong>kaniX_mSnR</strong> is a personal trading journal designed for traders who take their craft seriously. 
+                        Born from the belief that disciplined record-keeping is the foundation of consistent profitability, 
+                        this tool helps you track every trade, analyze your patterns, and grow as a trader.
+                    </p>
+                    <p class="about-text">
+                        Whether you trade crypto, forex, stocks, or commodities, kaniX_mSnR gives you the clarity you need 
+                        to identify what works, eliminate what doesn't, and refine your edge in the markets.
+                    </p>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                    <polyline points="10 9 9 9 8 9"/>
+                                </svg>
+                            </div>
+                            <span>Detailed trade logging</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+                                    <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                                </svg>
+                            </div>
+                            <span>Real-time analytics</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="3" y1="9" x2="21" y2="9"/>
+                                    <line x1="9" y1="21" x2="9" y2="9"/>
+                                </svg>
+                            </div>
+                            <span>Asset-type breakdown</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                </svg>
+                            </div>
+                            <span>Performance tracking</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-footer">
+                    <div class="creator-info">
+                        <div class="creator-avatar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="creator-details">
+                            <span class="creator-name">Creator Name</span>
+                            <span class="creator-role">Founder & Developer</span>
+                        </div>
+                    </div>
+                    <p class="version">v1.0.0 &mdash; Built with passion</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Action Button -->
+    <button class="fab" id="fab" onclick="app.openQuickTrade()" aria-label="Quick add trade">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+    </button>
+
+    <!-- Quick Trade Modal -->
+    <div class="modal-overlay" id="quickTradeModal">
+        <div class="modal glass">
+            <div class="modal-header">
+                <h3>Quick Add Trade</h3>
+                <button class="modal-close" onclick="app.closeQuickTrade()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="quickTradeForm" class="trade-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="quickDate">Date</label>
+                        <input type="date" id="quickDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quickAsset">Asset</label>
+                        <input type="text" id="quickAsset" placeholder="e.g., BTC, EUR/USD" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="quickType">Type</label>
+                        <select id="quickType" required>
+                            <option value="">Select</option>
+                            <option value="crypto">Crypto</option>
+                            <option value="forex">Forex</option>
+                            <option value="stocks">Stocks</option>
+                            <option value="commodities">Commodities</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quickDirection">Direction</label>
+                        <select id="quickDirection" required>
+                            <option value="">Select</option>
+                            <option value="long">Long</option>
+                            <option value="short">Short</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="quickEntry">Entry</label>
+                        <input type="number" id="quickEntry" step="0.00000001" placeholder="0.00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quickExit">Exit</label>
+                        <input type="number" id="quickExit" step="0.00000001" placeholder="0.00" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="quickSize">Size</label>
+                        <input type="number" id="quickSize" step="0.01" placeholder="1.0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quickPnl">P&L</label>
+                        <input type="text" id="quickPnl" readonly placeholder="Auto" class="readonly-field">
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="quickSetup">Setup</label>
+                    <input type="text" id="quickSetup" list="setupOptions" placeholder="e.g., Elliott Wave Wave 3...">
+                </div>
+                <div class="form-group full-width">
+                    <label for="quickNotes">Notes</label>
+                    <textarea id="quickNotes" rows="2" placeholder="Quick note..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Add Trade</button>
+                    <button type="button" class="btn btn-ghost" onclick="app.closeQuickTrade()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Setup Suggestions (shared by both forms) -->
+    <datalist id="setupOptions">
+        <option value="Elliott Wave - Impulse Wave 3"></option>
+        <option value="Elliott Wave - Wave 5 Extension"></option>
+        <option value="Elliott Wave - ABC Correction"></option>
+        <option value="Elliott Wave - Wave 4 Triangle"></option>
+        <option value="Order Flow - Imbalance Breakout"></option>
+        <option value="Order Flow - Absorption Reversal"></option>
+        <option value="Breakout Retest"></option>
+        <option value="Support / Resistance Bounce"></option>
+        <option value="Trend Continuation"></option>
+        <option value="Reversal / Divergence"></option>
+    </datalist>
+
+    <script src="script.js"></script>
+</body>
+</html>
